@@ -1,0 +1,121 @@
+﻿@page
+@model PRN_Lab3.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "List of products";
+}
+<script src="/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="/js/site.js"></script>
+
+<h1>List of products</h1>
+<style>
+
+</style>
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="11" style="text-align: center">
+                <form method="post" asp-page-handler="filter" id="filterform">
+                    <select name="CategoryId" onchange="this.form.submit()">
+                        <option selected="true" disabled="disabled">Choose Tagging</option>
+                        @foreach (Models.Category c in Model.Categories)
+                        {
+                            <option value="@c.CategoryId">@c.CategoryName</option>
+                        }
+                    </select>
+                </form>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].QuantityPerUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].UnitsInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].UnitsOnOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ReorderLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Discontinued)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Supplier)
+            </th>
+            <th>Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Product)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitsInStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitsOnOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReorderLevel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discontinued)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+                <td style="max-width:100%;white-space:nowrap;">
+                    <form method="post">
+                        <button type="submit" asp-page-handler="addcart" name="ProductId" value="@item.ProductId">Add to cart</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    <form method="post" asp-page-handler="filter">
+        <input type="hidden" value="@Model.CategoryId" name="CategoryId" />
+        @for (int i = 1; i <= Model.TotalPage; i++)
+        {
+            @if (i == Model.PageIndex)
+            {
+                <button value="@i" style="background-color:aqua; font-weight:bold" name="PageIndex" type="submit">@i</button>
+            }
+            else
+            {
+                <button value="@i" name="PageIndex" type="submit">@i</button>
+            }
+        }
+    </form>
+</div>

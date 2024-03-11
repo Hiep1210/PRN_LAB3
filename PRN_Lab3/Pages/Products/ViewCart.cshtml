@@ -1,0 +1,41 @@
+﻿@page
+@model PRN_Lab3.Pages.Products.ViewCart
+@{
+}
+<link rel="stylesheet" href="/css/site.css" />
+<table class="table">
+    <tr>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Supplier Name
+        </th>
+        <th>
+            Category Name
+        </th>
+        <th>
+            Number
+        </th>
+    </tr>
+    @foreach(var product in Model.Cart.Keys)
+    {
+        <tr>
+            <td>
+                @product.ProductName
+            </td>
+            <td>
+                @product.Supplier.CompanyName
+            </td>
+            <td>
+                @product.Category.CategoryName
+            </td>
+            <td>
+                @Model.Cart[product]
+            </td>
+        </tr>
+    }
+    <form method="get" action="/Orders/Create">
+        <button type="submit">Make an Order</button>
+    </form>
+</table>

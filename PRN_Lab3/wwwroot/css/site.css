@@ -1,0 +1,40 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+}
+
+    button:hover {
+        background-color: dodgerblue;
+        font-weight:bold;
+    }
+
+.table th {
+    background-color: darkblue;
+    color: white;
+    font-weight: bold;
+    border: 1px solid white;
+}
+
+.table tr:nth-child(2n) {
+    background-color: lavenderblush;
+}
